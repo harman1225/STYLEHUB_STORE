@@ -1,0 +1,27 @@
+<div class="container mt-4">
+
+  <h1><%= @product.name %></h1>
+
+  <hr>
+
+  <!--  PRODUCT IMAGE -->
+  <% if @product.image.attached? %>
+    <%= image_tag @product.image, width: 300, class: "mb-3" %>
+  <% end %>
+
+  <!--  PRODUCT DETAILS -->
+  <p><strong>Description:</strong></p>
+  <p><%= @product.description %></p>
+
+  <p><strong>Price:</strong> $<%= @product.price %></p>
+
+  <p><strong>Stock:</strong> <%= @product.stock %></p>
+
+  <p><strong>Category:</strong> <%= @product.category.name %></p>
+
+  <hr>
+
+  <!-- 🔙 BACK BUTTON -->
+  <%= link_to "Back to Products", root_path, class: "btn btn-dark" %>
+
+</div>

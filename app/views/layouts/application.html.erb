@@ -10,6 +10,16 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <div class="container mt-3">
+  <% if notice %>
+    <div class="alert alert-success"><%= notice %></div>
+  <% end %>
+
+  <% if alert %>
+    <div class="alert alert-danger"><%= alert %></div>
+  <% end %>
+</div>
+
     <%= yield :head %>
 
     <!-- Bootstrap CSS -->
@@ -32,13 +42,31 @@
     <% unless request.path.start_with?("/admin") %>
 
       <!-- NAVBAR (only for frontend) -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-          <a class="navbar-brand" href="/">StyleHub 👕</a>
-        </div>
-      </nav>
+      <ul class="navbar-nav ms-auto">
+  <% if user_signed_in? %>
+    <li class="nav-item">
+      <span class="nav-link text-white">Hi, <%= current_user.email %></span>
+    </li>
 
-      <!-- MAIN CONTENT -->
+    <li class="nav-item">
+      <%= link_to "Orders", orders_path, class: "nav-link text-white" %>
+    </li>
+
+    <li class="nav-item">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link text-white" %>
+    </li>
+  <% else %>
+    <li class="nav-item">
+      <%= link_to "Login", new_user_session_path, class: "nav-link text-white" %>
+    </li>
+
+    <li class="nav-item">
+      <%= link_to "Sign Up", new_user_registration_path, class: "nav-link text-white" %>
+    </li>
+  <% end %>
+</ul>
+
+      <!-- KEEP ONLY ONE -->
       <div class="container mt-4">
         <%= yield %>
       </div>

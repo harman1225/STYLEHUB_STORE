@@ -1,0 +1,61 @@
+<div class="container py-5">
+  <h1 class="fw-bold mb-4 text-center">Checkout</h1>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4">
+          <h4 class="fw-bold mb-3">Order Summary</h4>
+
+          <% @products.each do |product| %>
+            <% quantity = @cart[product.id.to_s].to_i %>
+            <% line_total = product.price * quantity %>
+
+            <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+              <div>
+                <div class="fw-semibold"><%= product.name %></div>
+                <small class="text-muted">Quantity: <%= quantity %></small>
+              </div>
+              <div class="fw-semibold">$<%= sprintf("%.2f", line_total) %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body p-4">
+          <h4 class="fw-bold mb-3">Invoice</h4>
+          <p>Subtotal: <strong>$<%= sprintf("%.2f", @subtotal) %></strong></p>
+          <p>GST: <strong>$<%= sprintf("%.2f", @gst_amount) %></strong></p>
+          <p>PST: <strong>$<%= sprintf("%.2f", @pst_amount) %></strong></p>
+          <p>HST: <strong>$<%= sprintf("%.2f", @hst_amount) %></strong></p>
+          <hr>
+          <h4 class="text-success fw-bold">Grand Total: $<%= sprintf("%.2f", @total) %></h4>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body p-4">
+          <h4 class="fw-bold mb-3">Customer Info</h4>
+          <p class="mb-2"><strong>Email:</strong> <%= current_user.email %></p>
+          <p class="mb-2"><strong>Address:</strong> <%= current_user.address.presence || "Not added yet" %></p>
+          <p class="mb-0"><strong>Province:</strong> <%= current_user.province&.name || "Not selected" %></p>
+        </div>
+      </div>
+
+      <% if current_user.province.present? %>
+        <%= form_with url: place_order_path, method: :post, local: true do %>
+          <%= submit_tag "Place Order", class: "btn btn-success btn-lg w-100 fw-semibold" %>
+        <% end %>
+        <%= link_to "Back to Cart", cart_path, class: "btn btn-outline-secondary w-100 mt-2" %>
+      <% else %>
+        <div class="alert alert-warning">
+          Please update your account and choose a province first.
+        </div>
+        <%= link_to "Update My Account", edit_user_registration_path, class: "btn btn-warning w-100" %>
+      <% end %>
+    </div>
+  </div>
+</div>

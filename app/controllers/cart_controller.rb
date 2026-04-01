@@ -18,13 +18,18 @@ class CartController < ApplicationController
   end
 
   def update
-    product_id = params[:product_id].to_s
-    session[:cart][product_id] = params[:quantity].to_i
-    redirect_to cart_path
+  params[:quantities].each do |product_id, qty|
+    if qty.to_i > 0
+      session[:cart][product_id] = qty.to_i
+    else
+      session[:cart].delete(product_id)
+    end
   end
 
-  def remove
-    session[:cart].delete(params[:product_id].to_s)
-    redirect_to cart_path
-  end
+  redirect_to cart_path
+end
+
+def remove
+  session[:cart].delete(params[:id])
+  redirect_to cart_path
 end

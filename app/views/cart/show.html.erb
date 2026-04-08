@@ -1,0 +1,18 @@
+<h1>Shopping Cart</h1>
+
+<%= form_with url: update_cart_path, method: :patch do %>
+  <% @cart.each do |product_id, qty| %>
+    <% product = Product.find(product_id) %>
+
+    <p>
+      <%= product.name %> -
+      $<%= product.price %>
+
+      <input type="number" name="quantities[<%= product_id %>]" value="<%= qty %>" min="0">
+
+      <%= link_to "Remove", remove_from_cart_path(product_id), method: :delete %>
+    </p>
+  <% end %>
+
+  <%= submit_tag "Update Cart" %>
+<% end %>

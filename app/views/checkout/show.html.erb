@@ -1,0 +1,92 @@
+<div class="container py-5">
+  <h1 class="fw-bold mb-4 text-center">Checkout</h1>
+  <%= breadcrumbs ["Home", root_path], ["Cart", cart_path], ["Checkout", checkout_path] %>
+  <%
+  subtotal = @products.sum { |p| p.price * @cart[p.id.to_s].to_i }
+
+  gst_amount = subtotal * 0.05
+  pst_amount = current_user.province&.name == "Manitoba" ? subtotal * 0.07 : 0
+  hst_amount = 0
+
+  total = subtotal + gst_amount + pst_amount + hst_amount
+%>
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4">
+          <h4 class="fw-bold mb-3">Order Summary</h4>
+
+          <% @products.each do |product| %>
+            <% quantity = @cart[product.id.to_s].to_i %>
+            <% line_total = product.price * quantity %>
+
+            <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+              <div>
+                <div class="fw-semibold"><%= product.name %></div>
+                <small class="text-muted">Quantity: <%= quantity %></small>
+              </div>
+              <div class="fw-semibold">$<%= sprintf("%.2f", line_total) %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body p-4">
+          <h4 class="fw-bold mb-3">Invoice</h4>
+          <p>Subtotal: <strong>$<%= sprintf("%.2f", subtotal) %></strong></p>
+          <p>GST: <strong>$<%= sprintf("%.2f", gst_amount) %></strong></p>
+          <p>PST: <strong>$<%= sprintf("%.2f", pst_amount) %></strong></p>
+          <p>HST: <strong>$<%= sprintf("%.2f", hst_amount) %></strong></p>
+
+         <hr>
+
+<h4 class="text-success fw-bold">Grand Total: $<%= sprintf("%.2f", total) %></h4>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body p-4">
+          <h4 class="fw-bold mb-3">Customer Info</h4>
+          <p class="mb-2"><strong>Email:</strong> <%= current_user.email %></p>
+          <p class="mb-2"><strong>Address:</strong> <%= current_user.address.presence || "Not added yet" %></p>
+          <p class="mb-0"><strong>Province:</strong> <%= current_user.province&.name || "Not selected" %></p>
+        </div>
+      </div>
+      <div class="card border-0 shadow-sm rounded-4 mb-4">
+  <div class="card-body p-4">
+    <h4 class="fw-bold mb-3">Update Your Info</h4>
+
+    <%= form_with model: current_user, url: user_registration_path, method: :patch, local: true do |f| %>
+      <div class="mb-3">
+        <%= f.label :address, class: "form-label" %>
+        <%= f.text_field :address, class: "form-control", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :province_id, "Province", class: "form-label" %>
+        <%= f.collection_select :province_id, Province.all, :id, :name, { prompt: "Select Province" }, class: "form-select", required: true %>
+      </div>
+
+      <div class="d-grid">
+        <%= f.submit "Update Info", class: "btn btn-warning fw-semibold" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+      <% if current_user.province.present? && current_user.address.present? %>
+        <%= form_with url: place_order_path, method: :post, local: true do %>
+          <%= button_to "Pay Now (Test Mode)", place_order_path, method: :post, class: "btn btn-success" %>
+        <% end %>
+        <%= link_to "Back to Cart", cart_path, class: "btn btn-outline-secondary w-100 mt-2" %>
+      <% else %>
+        <div class="alert alert-warning">
+         Please update your address and province before placing your order.
+        </div>
+        <%= link_to "Update My Account", edit_user_registration_path, class: "btn btn-warning w-100" %>
+      <% end %>
+    </div>
+  </div>
+</div>

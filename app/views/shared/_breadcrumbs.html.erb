@@ -1,0 +1,11 @@
+<nav>
+  <%= link_to "Home", root_path %>
+
+  <% if @category %>
+    > <%= link_to @category.name, category_path(@category) %>
+  <% end %>
+
+  <% if @product %>
+    > <%= @product.name %>
+  <% end %>
+</nav>

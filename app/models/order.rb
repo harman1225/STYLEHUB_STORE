@@ -2,7 +2,8 @@ class Order < ApplicationRecord
   belongs_to :user
   has_many :order_items, dependent: :destroy
   validates :status, presence: true
-  validates :total, presence: true, numericality: true
+  validates :total, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :user, presence: true
 
   def subtotal
     order_items.sum { |item| item.price.to_f * item.quantity.to_i }

@@ -78,8 +78,7 @@
 </div>
       <% if current_user.province.present? && current_user.address.present? %>
         <%= form_with url: place_order_path, method: :post, local: true do %>
-          <%= button_to "Pay Now (Test Mode)", place_order_path, method: :post, class: "btn btn-success" %>
-        <% end %>
+        <%= button_to "Pay Now (Test Mode)", place_order_path, method: :post, class: "btn btn-success w-100 fw-bold" %>        <% end %>
         <%= link_to "Back to Cart", cart_path, class: "btn btn-outline-secondary w-100 mt-2" %>
       <% else %>
         <div class="alert alert-warning">

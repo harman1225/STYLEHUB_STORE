@@ -1,11 +1,26 @@
-<nav>
-  <%= link_to "Home", root_path %>
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
 
-  <% if @category %>
-    > <%= link_to @category.name, category_path(@category) %>
-  <% end %>
+    <% if defined?(@category) && @category.present? %>
+      <li class="breadcrumb-item">
+        <%= link_to @category.name, products_path(category_id: @category.id) %>
+      </li>
+    <% end %>
 
-  <% if @product %>
-    > <%= @product.name %>
-  <% end %>
+    <% if defined?(@product) && @product.present? %>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= @product.name %>
+      </li>
+    <% end %>
+
+    <% if request.path == cart_path %>
+      <li class="breadcrumb-item active" aria-current="page">Cart</li>
+    <% end %>
+
+    <% if request.path == checkout_path %>
+      <li class="breadcrumb-item"><%= link_to "Cart", cart_path %></li>
+      <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+    <% end %>
+  </ol>
 </nav>

@@ -8,8 +8,7 @@
 
   <!--  PRODUCT IMAGE -->
   <% if @product.image.attached? %>
-    <%= image_tag @product.image, width: 300, class: "mb-3" %>
-  <% end %>
+  <%= image_tag @product.image.variant(resize_to_limit: [600, 600]),  <% end %>
 
   <!--  PRODUCT DETAILS -->
   <p><strong>Description:</strong></p>

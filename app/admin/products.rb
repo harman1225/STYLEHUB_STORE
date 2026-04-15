@@ -18,6 +18,7 @@ ActiveAdmin.register Product do
       f.input :stock, input_html: { min: 0 }
       f.input :category
       f.input :image, as: :file
+      f.input :on_sale
       f.input :tags, as: :check_boxes
     end
     f.actions

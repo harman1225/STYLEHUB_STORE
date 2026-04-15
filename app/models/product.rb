@@ -13,9 +13,9 @@ class Product < ApplicationRecord
   has_many :tags, through: :product_tags
 
   def self.ransackable_attributes(auth_object = nil)
-    ["id", "name", "description", "price", "stock", "category_id", "created_at", "updated_at"]
+    [ "id", "name", "description", "price", "stock", "category_id", "created_at", "updated_at" ]
   end
 
   def self.ransackable_associations(auth_object = nil)
-  ["category", "product_tags", "tags"]  end
+  [ "category", "product_tags", "tags" ]  end
 end

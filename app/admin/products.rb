@@ -1,5 +1,4 @@
 ActiveAdmin.register Product do
-
   # (Fix ForbiddenAttributesError)
   permit_params :name, :description, :price, :stock, :category_id, :image, tag_ids: []
 
@@ -62,5 +61,4 @@ end
       end
     end
   end
-
 end

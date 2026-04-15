@@ -2,16 +2,16 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.3"
-gem 'devise'
-gem 'activeadmin'
-gem 'kaminari'
+gem "devise"
+gem "activeadmin"
+gem "kaminari"
 gem "sprockets-rails"
-gem 'ransack' # search
+gem "ransack" # search
 gem "sassc-rails"
 gem "httparty"
 gem "nokogiri"
 # Gemfile
-gem "dotenv-rails", groups: [:development, :test]
+gem "dotenv-rails", groups: [ :development, :test ]
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", ">= 2.1"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -65,6 +65,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "rubocop", require: false
+  gem "rubocop-rails", require: false
 end
 
 group :test do

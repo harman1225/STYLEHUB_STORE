@@ -1,5 +1,4 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def update
@@ -19,6 +18,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:account_update, keys: [:address, :province_id])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :address, :province_id ])
   end
 end

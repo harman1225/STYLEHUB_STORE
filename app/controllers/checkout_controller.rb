@@ -94,8 +94,8 @@ class CheckoutController < ApplicationController
     end
 
     stripe_session = Stripe::Checkout::Session.create(
-      payment_method_types: ["card"],
-      line_items: [{
+      payment_method_types: [ "card" ],
+      line_items: [ {
         price_data: {
           currency: "cad",
           product_data: {
@@ -104,7 +104,7 @@ class CheckoutController < ApplicationController
           unit_amount: (total * 100).to_i
         },
         quantity: 1
-      }],
+      } ],
       mode: "payment",
       success_url: "#{request.base_url}/checkout/success?order_id=#{order.id}&session_id={CHECKOUT_SESSION_ID}",
       cancel_url: "#{request.base_url}/cart"

@@ -8,7 +8,8 @@
 
   <!--  PRODUCT IMAGE -->
   <% if @product.image.attached? %>
-  <%= image_tag @product.image.variant(resize_to_limit: [600, 600]),  <% end %>
+  <%= image_tag @product.image.variant(resize_to_limit: [600, 600]), width: 300, class: "mb-3" %>
+  <% end %>
 
   <!--  PRODUCT DETAILS -->
   <p><strong>Description:</strong></p>
@@ -28,6 +29,12 @@
   <p><strong>Category:</strong> <%= @product.category.name %></p>
 
   <hr>
+
+  <!--  ADD TO CART BUTTON -->
+  <%= button_to "Add to Cart",
+    add_to_cart_path(product_id: @product.id),
+    method: :post,
+    class: "btn btn-success mb-2" %>
 
   <!-- 🔙 BACK BUTTON -->
   <%= link_to "Back to Products", products_path, class: "btn btn-dark" %>

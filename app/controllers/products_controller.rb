@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     @categories = Category.all
+    @category = nil
 
     if params[:keyword].present?
       @products = @products.where(
@@ -13,6 +14,7 @@ class ProductsController < ApplicationController
 
     if params[:category_id].present?
       @products = @products.where(category_id: params[:category_id])
+      @category = Category.find_by(id: params[:category_id])
     end
 
     if params[:filter] == "new"
@@ -33,5 +35,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    @category = @product.category
   end
 end

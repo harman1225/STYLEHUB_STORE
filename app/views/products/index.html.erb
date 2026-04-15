@@ -66,8 +66,7 @@
       <div class="col-md-6 col-lg-4">
         <div class="card h-100 border shadow-sm rounded-4">
           <% if product.respond_to?(:image) && product.image.present? %>
-            <%= image_tag product.image,
-                class: "card-img-top rounded-top-4",
+          <%= image_tag product.image.variant(resize_to_fill: [300, 220]),                class: "card-img-top rounded-top-4",
                 style: "height: 220px; object-fit: cover;" %>
           <% else %>
             <div class="d-flex align-items-center justify-content-center bg-light text-muted rounded-top-4"

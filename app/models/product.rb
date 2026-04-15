@@ -5,6 +5,9 @@ class Product < ApplicationRecord
   validates :name, presence: true
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates :description, presence: true
+  validates :stock, presence: true,
+                  numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :category, presence: true
 
   has_many :product_tags, dependent: :destroy
   has_many :tags, through: :product_tags
@@ -14,6 +17,5 @@ class Product < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["category"]
-  end
+  ["category", "product_tags", "tags"]  end
 end

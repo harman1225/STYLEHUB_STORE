@@ -1,5 +1,9 @@
 <%= render "shared/breadcrumbs" %>
 
+<% if @cart.empty? %>
+  <p>Your cart is empty.</p>
+<% end %>
+
 <h1>Shopping Cart</h1>
 
 <%= form_with url: update_cart_path, method: :patch do %>

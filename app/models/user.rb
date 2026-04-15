@@ -5,6 +5,7 @@ class User < ApplicationRecord
   belongs_to :province, optional: true
   has_many :orders, dependent: :destroy
   validates :address, presence: true
+  validates :province, presence: true, on: :update
 
   def update_without_password(params, *options)
     params.delete(:current_password)

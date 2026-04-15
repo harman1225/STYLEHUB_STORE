@@ -1,0 +1,132 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ */
+
+/* VARIABLES */
+$font-main: Arial, sans-serif;
+$bg-light: #f8f9fa;
+$white: #ffffff;
+$dark: #111;
+$dark-2: #222;
+$text-main: #333;
+$border-light: #ddd;
+$success: #28a745;
+$success-hover: #218838;
+$radius-sm: 4px;
+$radius-md: 5px;
+$radius-lg: 10px;
+$space-sm: 10px;
+$space-md: 15px;
+$space-lg: 30px;
+
+/* INHERITANCE */
+%card-style {
+  background: $white;
+  border-radius: $radius-lg;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* RESET */
+body {
+  font-family: $font-main;
+  margin: 0;
+  background-color: $bg-light;
+}
+
+/* NAVBAR */
+.navbar {
+  background: $dark;
+  padding: $space-md $space-lg;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
+    color: $white;
+    margin-right: $space-md;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      color: $success;
+    }
+  }
+}
+
+/* SEARCH BAR */
+.search-box {
+  padding: 6px;
+  border-radius: $radius-sm;
+  border: none;
+  outline: none;
+}
+
+.search-btn {
+  padding: 6px $space-sm;
+  background: $success;
+  color: $white;
+  border: none;
+  border-radius: $radius-sm;
+}
+
+/* CONTAINER */
+.container {
+  width: 85%;
+  margin: $space-lg auto;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: $white;
+  border-radius: $radius-lg;
+  overflow: hidden;
+
+  th {
+    background: $dark-2;
+    color: $white;
+    padding: 12px;
+  }
+
+  td {
+    padding: $space-sm;
+    border-bottom: 1px solid $border-light;
+  }
+
+  tr:hover {
+    background: #f1f1f1;
+  }
+}
+
+/* BUTTON */
+.btn {
+  background: $success;
+  color: $white;
+  padding: 8px 12px;
+  border-radius: $radius-md;
+  text-decoration: none;
+
+  &:hover {
+    background: $success-hover;
+  }
+}
+
+/* CARD (for products/cart) */
+.card {
+  @extend %card-style;
+  padding: $space-md;
+  margin: $space-sm;
+}
+
+/* HEADINGS */
+h1,
+h2,
+h3 {
+  color: $text-main;
+}
+
+/* OPERATORS */
+.products-page {
+  padding: $space-md * 2;
+}

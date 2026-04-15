@@ -14,6 +14,8 @@ class CartController < ApplicationController
       session[:cart][product_id] = 1
     end
 
+    flash[:notice] = "Product added to cart successfully."
+
     redirect_to cart_path
   end
 
@@ -26,10 +28,16 @@ class CartController < ApplicationController
     end
   end
 
+  flash[:notice] = "Cart updated successfully."
+
+
   redirect_to cart_path
 end
 
 def remove
   session[:cart].delete(params[:id])
+
+  flash[:alert] = "Product removed from cart."
+
   redirect_to cart_path
 end
